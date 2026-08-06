@@ -1,0 +1,5 @@
+# Adopt Direct Environment Variable Access for Runtime Configuration Secrets
+
+The codebase requires runtime access to sensitive configuration values including API credentials, domain identifiers, and revalidation secrets for external service integration Multiple modules across the application boundary layer access environment variables directly through the process runtime object to retrieve secrets at request time and initialization time The pattern appears in both server-side API integration code and component rendering logic, indicating a cross-cutting concern for configuration management The application integrates with external storefront APIs and deployment platforms that require credential-based authentication and domain-specific routing
+
+- Modules that access multiple related secrets SHOULD validate the presence of required environment variables at initialization time
