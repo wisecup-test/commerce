@@ -1,0 +1,24 @@
+# Client-Side UI Interaction with React Hooks: Before Implementing Any Code That Uses
+
+These rules are ALWAYS ACTIVE for interactive UI components and client-side rendered components.
+
+### Rules
+
+- **R-VERSION-001** MUST: Before implementing any code that uses a versioned library, the exact resolved version of that library MUST be identified from the project's lock file or resolution artifact.
+
+### Verify
+
+```bash
+# Inspect component files for the presence of `useState` and `useEffect` imports from the `react` library.
+# Verify that interactive client-side components include the `use client` directive at the top of the file.
+# Examine the project's dependency lock file to confirm the resolved version of the `react` library.
+```
+
+**Accept when:**
+- `useState` and `useEffect` are consistently used for local state and side effects in interactive components.
+- The `use client` directive is present in all components requiring client-side interactivity.
+- The resolved `react` version is documented and consistent with project standards.
+
+<enforcement>
+Claude Code MUST NOT skip or defer verification.
+</enforcement>
