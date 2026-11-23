@@ -1,0 +1,47 @@
+---
+version: 2
+name: cross-cutting-modules-consuming-lib-shopify-module-c44b
+description: "Adoption of lib/shopify Module for Commerce Data Integration: Modules Consuming Lib Shopify Module Handle"
+metadata:
+  actual:
+    adr_id: c44bea66-c969-470b-9ecc-85b38d8efec5
+    status: accepted
+    candidate_group_id: aaff154b-2b92-4573-a820-1b4afa17030f
+    evidence:
+      source: deep
+  scope:
+    root: .
+    paths:
+      - app/**
+---
+
+# Adoption of lib/shopify Module for Commerce Data Integration: Modules Consuming Lib Shopify Module Handle
+
+Scope: applies to `app/**`.
+
+These rules are ALWAYS ACTIVE for:
+- Application route handlers, dynamic page renderers, and sitemap generation modules requiring commerce catalog and page data.
+
+### Rules
+
+- **R-LM-001** SHOULD: Modules consuming the lib/shopify module SHOULD handle data access exceptions at the route boundary to provide resilient fallback representations.
+
+### Verify
+
+- Discover and execute the project static analysis suite to verify that external commerce queries are restricted to the designated module.
+- Discover and run the project automated test suite to confirm contract compatibility across all consuming routes.
+
+**Accept when:**
+
+- Static import analysis confirms zero direct third-party commerce network calls outside the designated module boundary.
+- Automated integration verification suites pass against all routes consuming the centralized commerce module.
+
+<enforcement>
+Claude Code MUST NOT skip or defer verification.
+- Verified by: Automated static analysis checks enforcing boundary restrictions on external commerce network invocations.
+- Verified by: Mandatory peer review on pull requests touching application data layers and route implementations.
+- Violation handling: Pull requests introducing unapproved direct network calls or alternative commerce clients are rejected at build gate.
+- Violation handling: Identified architectural drift must be refactored into the centralized module before deployment approval.
+- Exception process: Submit an architecture review request documenting why the centralized module cannot support the required query or transport protocol.
+- Exception process: Obtain formal approval from the architecture review board before introducing alternative data access pathways.
+</enforcement>

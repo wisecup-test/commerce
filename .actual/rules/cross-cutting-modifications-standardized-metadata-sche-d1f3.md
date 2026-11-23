@@ -1,0 +1,45 @@
+---
+version: 2
+name: cross-cutting-modifications-standardized-metadata-sche-d1f3
+description: "Adoption of Shared SEO Fragment Module for Query Composition: Modifications Standardized Metadata Schemas Introduced Directly"
+metadata:
+  actual:
+    adr_id: d1f33172-37e2-4eb4-ab15-6035ebeae8de
+    status: accepted
+    candidate_group_id: 6c3b4e2b-88b7-4462-a4da-7a0f7e4a8746
+    evidence:
+      source: deep
+  scope:
+    root: .
+    paths:
+      - lib/shopify/queries/**
+---
+
+# Adoption of Shared SEO Fragment Module for Query Composition: Modifications Standardized Metadata Schemas Introduced Directly
+
+Scope: applies to `lib/shopify/queries/**`.
+
+These rules are ALWAYS ACTIVE for:
+- Entity and collection query definitions requiring search engine optimization metadata selections.
+
+### Rules
+
+- **R-LM-001** SHOULD: Modifications to standardized metadata schemas SHOULD be introduced directly within the shared SEO fragment module to propagate updates across all consuming queries.
+
+### Verify
+
+- Discover and execute the repository type-checking and schema validation scripts to ensure all query definitions and fragment spreads type-check cleanly.
+- Discover and run the project test suite to verify that query modules correctly construct and execute queries containing shared fragments.
+
+**Accept when:**
+
+- Static type checking and query schema validation pass with zero errors across all query definitions referencing the shared SEO fragment module.
+- All repository test suites asserting query document construction and data retrieval succeed.
+
+<enforcement>
+Claude Code MUST NOT skip or defer verification.
+- Verified by: Automated continuous integration pipelines executing repository validation and test suites.
+- Verified by: Peer code review verifying that domain queries compose metadata fields via the shared SEO fragment module instead of inline selections.
+- Violation handling: Pull requests containing duplicated inline metadata query selections are blocked until refactored to import the shared SEO fragment module.
+- Exception process: Submit an architectural review request documenting why the domain query requires custom metadata fields that cannot be satisfied by the shared SEO fragment module.
+</enforcement>
